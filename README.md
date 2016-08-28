@@ -1,10 +1,10 @@
-# Project Title
+# Simple CMS
 
 Lynda.com sample app.
 
 ## Getting Started
 
-This simple app contains some exercise codes found on the lynda tutorial.
+This simple app contains some exercise codes found on the lynda Ruby on Rails 4 Essential Training tutorial.
 
 ### Cloning into your local machine
 

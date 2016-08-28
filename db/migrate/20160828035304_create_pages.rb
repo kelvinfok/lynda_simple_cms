@@ -4,9 +4,9 @@ class CreatePages < ActiveRecord::Migration
     create_table :pages do |t|
       t.integer "subject_id"
       # same as: t.references :subject
-      t.string "name", null: false
-      t.string "permalink", null: false
-      t.integer "position", null: false
+      t.string "name"
+      t.string "permalink"
+      t.integer "position"
       t.boolean "visible", default: false, null: false
       t.timestamps null: false
     end
@@ -18,5 +18,5 @@ class CreatePages < ActiveRecord::Migration
   def down
     drop_table :pages
   end
-  
+
 end

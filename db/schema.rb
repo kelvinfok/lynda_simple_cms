@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160828035311) do
+ActiveRecord::Schema.define(version: 20160828070244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20160828035311) do
 
   add_index "admin_users", ["username"], name: "index_admin_users_on_username", using: :btree
 
+  create_table "admin_users_pages", id: false, force: :cascade do |t|
+    t.integer "admin_user_id"
+    t.integer "page_id"
+  end
+
+  add_index "admin_users_pages", ["admin_user_id", "page_id"], name: "index_admin_users_pages_on_admin_user_id_and_page_id", using: :btree
+
   create_table "pages", force: :cascade do |t|
     t.integer  "subject_id"
     t.string   "name",                       null: false
@@ -41,15 +48,25 @@ ActiveRecord::Schema.define(version: 20160828035311) do
   add_index "pages", ["permalink"], name: "index_pages_on_permalink", using: :btree
   add_index "pages", ["subject_id"], name: "index_pages_on_subject_id", using: :btree
 
+  create_table "section_edits", force: :cascade do |t|
+    t.integer  "admin_user_id"
+    t.integer  "section_id"
+    t.string   "summary"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "section_edits", ["admin_user_id", "section_id"], name: "index_section_edits_on_admin_user_id_and_section_id", using: :btree
+
   create_table "sections", force: :cascade do |t|
-    t.integer  "page_id",                      null: false
-    t.string   "name",                         null: false
-    t.integer  "position",                     null: false
-    t.boolean  "visible",      default: false, null: false
-    t.string   "content_type",                 null: false
-    t.string   "content",                      null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "page_id"
+    t.string   "name"
+    t.integer  "position"
+    t.boolean  "visible"
+    t.string   "content_type"
+    t.string   "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "sections", ["page_id"], name: "index_sections_on_page_id", using: :btree
